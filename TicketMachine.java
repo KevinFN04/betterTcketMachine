@@ -99,4 +99,17 @@ public class TicketMachine
         balance = 0;
         return amountToRefund;
     }
+    
+    /**
+     * Get the Machine Empty
+     * Return all the money 
+     */
+    public int emptyMachine()
+    {
+       int allMoney;
+       allMoney = total + balance;
+       total = 0;
+       balance = 0;
+       return allMoney;
+    }
 }
