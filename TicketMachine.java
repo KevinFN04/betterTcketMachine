@@ -17,15 +17,21 @@ public class TicketMachine
     private int balance;
     // The total amount of money collected by this machine.
     private int total;
+    
+    private boolean descuento;
+    
+    private int porcentaje;
 
     /**
      * Create a machine that issues tickets of the given price.
      */
-    public TicketMachine(int cost)
+    public TicketMachine(int cost, boolean desc, int porc)
     {
         price = cost;
         balance = 0;
         total = 0;
+        descuento = desc;
+        porcentaje = porc;
     }
 
     /**
@@ -108,14 +114,37 @@ public class TicketMachine
      */
     public int emptyMachine()
     {
-      if(balance == 0) {
-          int allMoney = total;
+    int allMoney = -1;
+    if(balance == 0) {
+          allMoney = total;
           total = 0;
-          return allMoney;
     }
-    else {
-        int allMoney = -1;
-        return allMoney;
+    return allMoney;
+}
+public void printTicketWithDiscount()
+    {
+        int precioDesc = price - (price * porcentaje / 100); 
+        if(descuento == true && balance >= precioDesc) {
+              // Simulate the printing of a ticket.
+            System.out.println("##################");
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + precioDesc + " cents.");
+            System.out.println("##################");
+            System.out.println();
+
+            // Update the total collected with the price.
+            total = total + precioDesc;
+            // Reduce the balance by the prince.
+            balance = balance - precioDesc;
+        }
+        else if(descuento == true) {
+           int amountLeftToPay = precioDesc - balance;
+           System.out.println("Debes insertar por lo menos " +
+                               amountLeftToPay + " cents mas.");
+        }
+        else {
+           System.out.println("No hay descuento aplicable.");
     }
 }
 }
